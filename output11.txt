@@ -1,0 +1,113 @@
+16 solution(s)
+Board: 
+  wobbler
+  oeeleme
+  beaches
+  oesroha
+  elttobl
+  anchore
+Board: 
+  wobbler
+  oeeleme
+  beaches
+  oesroha
+  elttobl
+  erohcna
+Board: 
+  elttobl
+  oesroha
+  beaches
+  oeeleme
+  wobbler
+  anchore
+Board: 
+  elttobl
+  oesroha
+  beaches
+  oeeleme
+  wobbler
+  erohcna
+Board: 
+  relbbow
+  emeleeo
+  sehcaeb
+  ahorseo
+  lbottle
+  anchore
+Board: 
+  relbbow
+  emeleeo
+  sehcaeb
+  ahorseo
+  lbottle
+  erohcna
+Board: 
+  lbottle
+  ahorseo
+  sehcaeb
+  emeleeo
+  relbbow
+  anchore
+Board: 
+  lbottle
+  ahorseo
+  sehcaeb
+  emeleeo
+  relbbow
+  erohcna
+Board: 
+  anchore
+  wobbler
+  oeeleme
+  beaches
+  oesroha
+  elttobl
+Board: 
+  erohcna
+  wobbler
+  oeeleme
+  beaches
+  oesroha
+  elttobl
+Board: 
+  anchore
+  elttobl
+  oesroha
+  beaches
+  oeeleme
+  wobbler
+Board: 
+  erohcna
+  elttobl
+  oesroha
+  beaches
+  oeeleme
+  wobbler
+Board: 
+  anchore
+  relbbow
+  emeleeo
+  sehcaeb
+  ahorseo
+  lbottle
+Board: 
+  erohcna
+  relbbow
+  emeleeo
+  sehcaeb
+  ahorseo
+  lbottle
+Board: 
+  anchore
+  lbottle
+  ahorseo
+  sehcaeb
+  emeleeo
+  relbbow
+Board: 
+  erohcna
+  lbottle
+  ahorseo
+  sehcaeb
+  emeleeo
+  relbbow

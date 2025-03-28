@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <set>
+#include <unordered_set>
 #include <algorithm>
 
 // Directions for word search: right, down-right, down, down-left, left, up-left, up, up-right
@@ -23,6 +24,8 @@ private:
     std::vector<std::vector<char>> grid;
     std::vector<std::vector<std::vector<char>>> solutions;
     bool findAllSolutions;
+    // Set of strings to represent solutions for faster duplicate checking
+    std::set<std::string> solutionHashes;
 
 public:
     InverseWordSearch(int w, int h, 
@@ -36,8 +39,33 @@ public:
     }
 
     bool solve() {
+        // Clear any existing solutions
+        solutions.clear();
+        solutionHashes.clear();
+        
+        // Special case: If no required words, just fill with valid letters
+        if (requiredWords.empty()) {
+            return fillEmptyCells(0, 0);
+        }
+        
+        // Pre-process forbidden words for faster checking
+        // Extract single-letter forbidden words for quick checking
+        std::unordered_set<char> forbiddenLetters;
+        std::vector<std::string> multiLetterForbidden;
+        
+        for (const auto& word : forbiddenWords) {
+            if (word.length() == 1) {
+                forbiddenLetters.insert(word[0]);
+            } else {
+                multiLetterForbidden.push_back(word);
+            }
+        }
+        
+        // Try to place all the required words
         std::vector<WordPlacement> placements;
-        return placeWords(0, placements);
+        bool result = placeWords(0, placements, forbiddenLetters, multiLetterForbidden);
+        
+        return result || !solutions.empty();
     }
 
     const std::vector<std::vector<std::vector<char>>>& getSolutions() const {
@@ -45,6 +73,16 @@ public:
     }
 
 private:
+    // Generate a string hash of the current grid for duplicate checking
+    std::string gridHash() const {
+        std::string hash;
+        hash.reserve(width * height);
+        for (const auto& row : grid) {
+            hash.append(row.begin(), row.end());
+        }
+        return hash;
+    }
+
     // Try to place a word at a specific position and direction
     bool canPlaceWord(const std::string& word, int row, int col, int dir) const {
         // Check if the word fits within the grid boundaries
@@ -107,37 +145,56 @@ private:
     
     // Check if a word exists in the grid
     bool wordExists(const std::string& word) const {
-        // Skip checking for single-letter words
-        if (word.length() <= 1) return true;
+        // For single-letter words, need to check if they appear in the grid
+        if (word.length() == 1) {
+            // Check if this letter appears anywhere in the grid
+            for (int row = 0; row < height; row++) {
+                for (int col = 0; col < width; col++) {
+                    if (grid[row][col] == word[0]) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
         
+        // First letter lookup optimization - create a list of positions where the first letter appears
+        std::vector<std::pair<int, int>> firstLetterPositions;
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
-                // Quick first letter check for efficiency
-                if (grid[row][col] != word[0]) continue;
-                
-                for (int dir = 0; dir < 8; dir++) {
-                    // Check word at this position and direction
-                    int endRow = row + (word.length() - 1) * dy[dir];
-                    int endCol = col + (word.length() - 1) * dx[dir];
-                    
-                    // Skip if out of bounds
-                    if (endRow < 0 || endRow >= height || endCol < 0 || endCol >= width) {
-                        continue;
-                    }
-                    
-                    bool match = true;
-                    for (size_t i = 0; i < word.length(); i++) {
-                        int r = row + i * dy[dir];
-                        int c = col + i * dx[dir];
-                        
-                        if (grid[r][c] != word[i]) {
-                            match = false;
-                            break;
-                        }
-                    }
-                    
-                    if (match) return true;
+                if (grid[row][col] == word[0]) {
+                    firstLetterPositions.emplace_back(row, col);
                 }
+            }
+        }
+        
+        // Now check only those positions
+        for (const auto& pos : firstLetterPositions) {
+            int row = pos.first;
+            int col = pos.second;
+            
+            for (int dir = 0; dir < 8; dir++) {
+                // Check word at this position and direction
+                int endRow = row + (word.length() - 1) * dy[dir];
+                int endCol = col + (word.length() - 1) * dx[dir];
+                
+                // Skip if out of bounds
+                if (endRow < 0 || endRow >= height || endCol < 0 || endCol >= width) {
+                    continue;
+                }
+                
+                bool match = true;
+                for (size_t i = 1; i < word.length(); i++) { // Start from 1 since we already matched the first letter
+                    int r = row + i * dy[dir];
+                    int c = col + i * dx[dir];
+                    
+                    if (grid[r][c] != word[i]) {
+                        match = false;
+                        break;
+                    }
+                }
+                
+                if (match) return true;
             }
         }
         
@@ -164,12 +221,20 @@ private:
     }
     
     // Fill empty cells with valid letters
-    bool fillEmptyCells(int row, int col) {
+    bool fillEmptyCells(int row, int col, 
+                       const std::unordered_set<char>& forbiddenLetters = std::unordered_set<char>(),
+                       const std::vector<std::string>& multiLetterForbidden = std::vector<std::string>()) {
         // If we've filled the entire grid, check if it's valid
         if (row == height) {
             if (isValidGrid()) {
-                solutions.push_back(grid);
-                return !findAllSolutions;  // Stop if we only need one solution
+                // Use hash for faster duplicate detection
+                std::string hash = gridHash();
+                
+                if (solutionHashes.find(hash) == solutionHashes.end()) {
+                    solutionHashes.insert(hash);
+                    solutions.push_back(grid);
+                    return !findAllSolutions;  // Stop if we only need one solution
+                }
             }
             return false;
         }
@@ -184,25 +249,38 @@ private:
         
         // If the cell is already filled, move to the next one
         if (grid[row][col] != '.') {
-            return fillEmptyCells(nextRow, nextCol);
+            return fillEmptyCells(nextRow, nextCol, forbiddenLetters, multiLetterForbidden);
         }
         
         // Try each possible letter
         for (char c = 'a'; c <= 'z'; c++) {
+            // Quick check for forbidden single letters
+            if (forbiddenLetters.find(c) != forbiddenLetters.end()) {
+                continue; // Skip this letter
+            }
+            
             grid[row][col] = c;
             
             // Check if this letter would create a forbidden word
             bool createsForbiddenWord = false;
-            for (const auto& word : forbiddenWords) {
-                if (word.length() <= 1) continue;  // Skip single letter words
-                if (wordExists(word)) {
-                    createsForbiddenWord = true;
-                    break;
+            
+            // Only check multi-letter forbidden words when we're near the end of filling the grid
+            // This optimization avoids unnecessary checks when the grid is still mostly empty
+            if ((row >= height-1) || (row == height-1 && col >= width-2)) {
+                for (const auto& word : multiLetterForbidden) {
+                    if (wordExists(word)) {
+                        createsForbiddenWord = true;
+                        break;
+                    }
                 }
             }
             
-            if (!createsForbiddenWord && fillEmptyCells(nextRow, nextCol)) {
-                return true;
+            if (!createsForbiddenWord) {
+                bool result = fillEmptyCells(nextRow, nextCol, forbiddenLetters, multiLetterForbidden);
+                if (result && !findAllSolutions) {
+                    return true;  // If we only need one solution and found it, return immediately
+                }
+                // If we need all solutions, or no solution was found, continue with the next letter
             }
         }
         
@@ -212,25 +290,32 @@ private:
     }
     
     // Recursive function to place required words in the grid
-    bool placeWords(int wordIndex, std::vector<WordPlacement>& placements) {
+    bool placeWords(int wordIndex, std::vector<WordPlacement>& placements,
+                   const std::unordered_set<char>& forbiddenLetters,
+                   const std::vector<std::string>& multiLetterForbidden) {
         // If all words are placed, fill the remaining cells
         if (wordIndex == requiredWords.size()) {
-            return fillEmptyCells(0, 0);
+            return fillEmptyCells(0, 0, forbiddenLetters, multiLetterForbidden);
         }
         
         const std::string& word = requiredWords[wordIndex];
+        bool foundSolution = false;
         
         // Try all possible positions and directions for this word
-        for (int row = 0; row < height; row++) {
-            for (int col = 0; col < width; col++) {
-                for (int dir = 0; dir < 8; dir++) {
+        for (int row = 0; row < height && (!foundSolution || findAllSolutions); row++) {
+            for (int col = 0; col < width && (!foundSolution || findAllSolutions); col++) {
+                for (int dir = 0; dir < 8 && (!foundSolution || findAllSolutions); dir++) {
                     if (canPlaceWord(word, row, col, dir)) {
                         // Place the word
                         placeWord(word, row, col, dir);
                         placements.push_back({word, row, col, dir});
                         
                         // Try to place the next word
-                        if (placeWords(wordIndex + 1, placements)) {
+                        bool result = placeWords(wordIndex + 1, placements, forbiddenLetters, multiLetterForbidden);
+                        foundSolution = foundSolution || result;
+                        
+                        // If we're only looking for one solution and we found it, return early
+                        if (result && !findAllSolutions) {
                             return true;
                         }
                         
@@ -242,7 +327,7 @@ private:
             }
         }
         
-        return false;
+        return foundSolution;
     }
 };
 
@@ -290,6 +375,9 @@ int main(int argc, char* argv[]) {
         
         char type = line[0];
         std::string word = line.substr(2);
+        
+        // Trim trailing whitespace
+        word.erase(word.find_last_not_of(" \n\r\t") + 1);
         
         if (type == '+') {
             requiredWords.push_back(word);

@@ -1,0 +1,25 @@
+4 solution(s)
+Board: 
+  fieryhuman
+  incredible
+  patronship
+  aeshapesea
+  reasemennl
+Board: 
+  namuhyreif
+  elbidercni
+  pihsnortap
+  aesepahsea
+  lnnemesaer
+Board: 
+  reasemennl
+  aeshapesea
+  patronship
+  incredible
+  fieryhuman
+Board: 
+  lnnemesaer
+  aesepahsea
+  pihsnortap
+  elbidercni
+  namuhyreif
