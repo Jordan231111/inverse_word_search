@@ -1,3 +1,17 @@
+**Compiled with**
+g++-14 -std=c++14 -O3 -o inverse_word_search main.cpp
+
+**Running tests**
+for i in {1..8}; do ./inverse_word_search puzzle$i.txt output$i.txt all_solutions; done
+for i in {1..8}; do echo "=== Puzzle $i: Solution Count ==="; head -n1 output$i.txt; echo "=== Expected: ==="; head -n1 out$i.txt; echo; done
+
+
+
+
+
+
+
+
 **Special Note 1: A correct program does not necessarily pass all the test cases for this assignment, as Submitty may let you fail a test case if your program is not fast enough or consumes too much memory.**
 
 # Homework 6 — Inverse Word Search Recursion
