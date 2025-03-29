@@ -1,205 +1,5 @@
 100 solution(s)
 Board: 
-  karma
-  diuqs
-  iteya
-Board: 
-  karma
-  diuqs
-  iteyb
-Board: 
-  karma
-  diuqs
-  iteyc
-Board: 
-  karma
-  diuqs
-  iteyd
-Board: 
-  karma
-  diuqs
-  iteye
-Board: 
-  karma
-  diuqs
-  iteyf
-Board: 
-  karma
-  diuqs
-  iteyg
-Board: 
-  karma
-  diuqs
-  iteyh
-Board: 
-  karma
-  diuqs
-  iteyj
-Board: 
-  karma
-  diuqs
-  iteyk
-Board: 
-  karma
-  diuqs
-  iteyl
-Board: 
-  karma
-  diuqs
-  iteym
-Board: 
-  karma
-  diuqs
-  iteyn
-Board: 
-  karma
-  diuqs
-  iteyo
-Board: 
-  karma
-  diuqs
-  iteyp
-Board: 
-  karma
-  diuqs
-  iteyq
-Board: 
-  karma
-  diuqs
-  iteyr
-Board: 
-  karma
-  diuqs
-  iteys
-Board: 
-  karma
-  diuqs
-  iteyt
-Board: 
-  karma
-  diuqs
-  iteyu
-Board: 
-  karma
-  diuqs
-  iteyv
-Board: 
-  karma
-  diuqs
-  iteyw
-Board: 
-  karma
-  diuqs
-  iteyx
-Board: 
-  karma
-  diuqs
-  iteyy
-Board: 
-  karma
-  diuqs
-  iteyz
-Board: 
-  iteya
-  diuqs
-  karma
-Board: 
-  iteyb
-  diuqs
-  karma
-Board: 
-  iteyc
-  diuqs
-  karma
-Board: 
-  iteyd
-  diuqs
-  karma
-Board: 
-  iteye
-  diuqs
-  karma
-Board: 
-  iteyf
-  diuqs
-  karma
-Board: 
-  iteyg
-  diuqs
-  karma
-Board: 
-  iteyh
-  diuqs
-  karma
-Board: 
-  iteyj
-  diuqs
-  karma
-Board: 
-  iteyk
-  diuqs
-  karma
-Board: 
-  iteyl
-  diuqs
-  karma
-Board: 
-  iteym
-  diuqs
-  karma
-Board: 
-  iteyn
-  diuqs
-  karma
-Board: 
-  iteyo
-  diuqs
-  karma
-Board: 
-  iteyp
-  diuqs
-  karma
-Board: 
-  iteyq
-  diuqs
-  karma
-Board: 
-  iteyr
-  diuqs
-  karma
-Board: 
-  iteys
-  diuqs
-  karma
-Board: 
-  iteyt
-  diuqs
-  karma
-Board: 
-  iteyu
-  diuqs
-  karma
-Board: 
-  iteyv
-  diuqs
-  karma
-Board: 
-  iteyw
-  diuqs
-  karma
-Board: 
-  iteyx
-  diuqs
-  karma
-Board: 
-  iteyy
-  diuqs
-  karma
-Board: 
-  iteyz
-  diuqs
-  karma
-Board: 
   amrak
   squid
   ayeti
@@ -399,3 +199,203 @@ Board:
   zyeti
   squid
   amrak
+Board: 
+  karma
+  diuqs
+  iteya
+Board: 
+  karma
+  diuqs
+  iteyb
+Board: 
+  karma
+  diuqs
+  iteyc
+Board: 
+  karma
+  diuqs
+  iteyd
+Board: 
+  karma
+  diuqs
+  iteye
+Board: 
+  karma
+  diuqs
+  iteyf
+Board: 
+  karma
+  diuqs
+  iteyg
+Board: 
+  karma
+  diuqs
+  iteyh
+Board: 
+  karma
+  diuqs
+  iteyj
+Board: 
+  karma
+  diuqs
+  iteyk
+Board: 
+  karma
+  diuqs
+  iteyl
+Board: 
+  karma
+  diuqs
+  iteym
+Board: 
+  karma
+  diuqs
+  iteyn
+Board: 
+  karma
+  diuqs
+  iteyo
+Board: 
+  karma
+  diuqs
+  iteyp
+Board: 
+  karma
+  diuqs
+  iteyq
+Board: 
+  karma
+  diuqs
+  iteyr
+Board: 
+  karma
+  diuqs
+  iteys
+Board: 
+  karma
+  diuqs
+  iteyt
+Board: 
+  karma
+  diuqs
+  iteyu
+Board: 
+  karma
+  diuqs
+  iteyv
+Board: 
+  karma
+  diuqs
+  iteyw
+Board: 
+  karma
+  diuqs
+  iteyx
+Board: 
+  karma
+  diuqs
+  iteyy
+Board: 
+  karma
+  diuqs
+  iteyz
+Board: 
+  iteya
+  diuqs
+  karma
+Board: 
+  iteyb
+  diuqs
+  karma
+Board: 
+  iteyc
+  diuqs
+  karma
+Board: 
+  iteyd
+  diuqs
+  karma
+Board: 
+  iteye
+  diuqs
+  karma
+Board: 
+  iteyf
+  diuqs
+  karma
+Board: 
+  iteyg
+  diuqs
+  karma
+Board: 
+  iteyh
+  diuqs
+  karma
+Board: 
+  iteyj
+  diuqs
+  karma
+Board: 
+  iteyk
+  diuqs
+  karma
+Board: 
+  iteyl
+  diuqs
+  karma
+Board: 
+  iteym
+  diuqs
+  karma
+Board: 
+  iteyn
+  diuqs
+  karma
+Board: 
+  iteyo
+  diuqs
+  karma
+Board: 
+  iteyp
+  diuqs
+  karma
+Board: 
+  iteyq
+  diuqs
+  karma
+Board: 
+  iteyr
+  diuqs
+  karma
+Board: 
+  iteys
+  diuqs
+  karma
+Board: 
+  iteyt
+  diuqs
+  karma
+Board: 
+  iteyu
+  diuqs
+  karma
+Board: 
+  iteyv
+  diuqs
+  karma
+Board: 
+  iteyw
+  diuqs
+  karma
+Board: 
+  iteyx
+  diuqs
+  karma
+Board: 
+  iteyy
+  diuqs
+  karma
+Board: 
+  iteyz
+  diuqs
+  karma

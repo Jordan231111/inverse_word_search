@@ -44,6 +44,87 @@ public:
         grid.resize(width * height, '.');
     }
 
+    void optimizeWordOrder() {
+        const size_t wordCount = requiredWords.size();
+        if (wordCount <= 1) return;
+        
+        // Static letter rarity scores (higher = rarer)
+        // Using uint8_t for better cache usage
+        static const uint8_t letterScore[26] = {
+            18, 98, 79, 67, 13, 91, 90, 49, 49, 99,
+            97, 66, 79, 50, 48, 90, 99, 54, 51, 37,
+            80, 96, 84, 99, 91, 99
+        };
+        
+        // For each word length, find where groups start and end
+        size_t currentLength = requiredWords[0].length();
+        size_t groupStart = 0;
+        
+        // Temporary storage for a single group - allocated once and reused
+        std::vector<std::pair<uint16_t, uint16_t>> scoreIndices; // (score, index)
+        
+        for (size_t i = 1; i <= wordCount; i++) {
+            if (i == wordCount || requiredWords[i].length() != currentLength) {
+                const size_t groupSize = i - groupStart;
+                
+                // Only need to process groups with multiple words
+                if (groupSize > 1) {
+                    // Resize our temporary vector for this group
+                    scoreIndices.resize(groupSize);
+                    
+                    // Calculate scores for this group
+                    for (size_t j = 0; j < groupSize; j++) {
+                        const std::string& word = requiredWords[groupStart + j];
+                        
+                        // Fixed-size array is much faster than unordered_set for this case
+                        bool seen[26] = {false};
+                        uint8_t uniqueCount = 0;
+                        uint16_t wordScore = 0;
+                        
+                        // Process each character once
+                        for (char c : word) {
+                            uint8_t idx = c - 'a';
+                            if (!seen[idx]) {
+                                seen[idx] = true;
+                                uniqueCount++;
+                                wordScore += letterScore[idx];
+                            }
+                        }
+                        
+                        // Final score with uniqueness bonus
+                        scoreIndices[j] = {
+                            static_cast<uint16_t>(wordScore + (uniqueCount * 10)), 
+                            static_cast<uint16_t>(j)
+                        };
+                    }
+                    
+                    // Sort by score (higher first)
+                    std::sort(scoreIndices.begin(), scoreIndices.end(),
+                        [](const auto& a, const auto& b) {
+                            return a.first > b.first;
+                        }
+                    );
+                    
+                    // Create a temporary copy of the reordered group
+                    std::vector<std::string> reordered(groupSize);
+                    for (size_t j = 0; j < groupSize; j++) {
+                        reordered[j] = requiredWords[groupStart + scoreIndices[j].second];
+                    }
+                    
+                    // Copy back to original array
+                    std::copy(reordered.begin(), reordered.end(), 
+                              requiredWords.begin() + groupStart);
+                }
+                
+                // Move to next group
+                if (i < wordCount) {
+                    currentLength = requiredWords[i].length();
+                    groupStart = i;
+                }
+            }
+        }
+    }
+
     bool solve() {
         // Clear any existing solutions
         solutions.clear();
@@ -465,6 +546,7 @@ int main(int argc, char* argv[]) {
     if (!impossiblePuzzle) {
         bool findAllSols = (mode == "all_solutions");
         InverseWordSearch solver(width, height, requiredWords, forbiddenWords, findAllSols);
+        solver.optimizeWordOrder(); // Call optimizeWordOrder before solving
         solver.solve();
         solutions = solver.getSolutions();
     }

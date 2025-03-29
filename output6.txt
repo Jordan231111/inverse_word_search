@@ -1,212 +1,8 @@
 208 solution(s)
 Board: 
-  ooz
-  ale
-  tad
-Board: 
-  ooz
-  ale
-  tbd
-Board: 
-  ooz
-  ale
-  tcd
-Board: 
-  ooz
-  ale
-  tdd
-Board: 
-  ooz
-  ale
-  ted
-Board: 
-  ooz
-  ale
-  tfd
-Board: 
-  ooz
-  ale
-  tgd
-Board: 
-  ooz
-  ale
-  thd
-Board: 
-  ooz
-  ale
-  tid
-Board: 
-  ooz
-  ale
-  tjd
-Board: 
-  ooz
-  ale
-  tkd
-Board: 
-  ooz
-  ale
-  tld
-Board: 
-  ooz
-  ale
-  tmd
-Board: 
-  ooz
-  ale
-  tnd
-Board: 
-  ooz
-  ale
-  tod
-Board: 
-  ooz
-  ale
-  tpd
-Board: 
-  ooz
-  ale
-  tqd
-Board: 
-  ooz
-  ale
-  trd
-Board: 
-  ooz
-  ale
-  tsd
-Board: 
-  ooz
-  ale
-  ttd
-Board: 
-  ooz
-  ale
-  tud
-Board: 
-  ooz
-  ale
-  tvd
-Board: 
-  ooz
-  ale
-  twd
-Board: 
-  ooz
-  ale
-  txd
-Board: 
-  ooz
-  ale
-  tyd
-Board: 
-  ooz
-  ale
-  tzd
-Board: 
-  tdd
-  ale
-  ooz
-Board: 
-  tad
-  ale
-  ooz
-Board: 
-  tbd
-  ale
-  ooz
-Board: 
-  tcd
-  ale
-  ooz
-Board: 
-  ted
-  ale
-  ooz
-Board: 
-  tfd
-  ale
-  ooz
-Board: 
-  tgd
-  ale
-  ooz
-Board: 
-  thd
-  ale
-  ooz
-Board: 
-  tid
-  ale
-  ooz
-Board: 
-  tjd
-  ale
-  ooz
-Board: 
-  tkd
-  ale
-  ooz
-Board: 
-  tld
-  ale
-  ooz
-Board: 
-  tmd
-  ale
-  ooz
-Board: 
-  tnd
-  ale
-  ooz
-Board: 
-  tod
-  ale
-  ooz
-Board: 
-  tpd
-  ale
-  ooz
-Board: 
-  tqd
-  ale
-  ooz
-Board: 
-  trd
-  ale
-  ooz
-Board: 
-  tsd
-  ale
-  ooz
-Board: 
-  ttd
-  ale
-  ooz
-Board: 
-  tud
-  ale
-  ooz
-Board: 
-  tvd
-  ale
-  ooz
-Board: 
-  twd
-  ale
-  ooz
-Board: 
-  txd
-  ale
-  ooz
-Board: 
-  tyd
-  ale
-  ooz
-Board: 
-  tzd
-  ale
-  ooz
+  zed
+  old
+  oat
 Board: 
   oat
   old
@@ -312,6 +108,214 @@ Board:
   olz
   zed
 Board: 
+  ooz
+  ale
+  tad
+Board: 
+  ooz
+  ale
+  tbd
+Board: 
+  ooz
+  ale
+  tcd
+Board: 
+  ooz
+  ale
+  tdd
+Board: 
+  ooz
+  ale
+  ted
+Board: 
+  ooz
+  ale
+  tfd
+Board: 
+  ooz
+  ale
+  tgd
+Board: 
+  ooz
+  ale
+  thd
+Board: 
+  ooz
+  ale
+  tid
+Board: 
+  ooz
+  ale
+  tjd
+Board: 
+  ooz
+  ale
+  tkd
+Board: 
+  ooz
+  ale
+  tld
+Board: 
+  ooz
+  ale
+  tmd
+Board: 
+  ooz
+  ale
+  tnd
+Board: 
+  ooz
+  ale
+  tod
+Board: 
+  ooz
+  ale
+  tpd
+Board: 
+  ooz
+  ale
+  tqd
+Board: 
+  ooz
+  ale
+  trd
+Board: 
+  ooz
+  ale
+  tsd
+Board: 
+  ooz
+  ale
+  ttd
+Board: 
+  ooz
+  ale
+  tud
+Board: 
+  ooz
+  ale
+  tvd
+Board: 
+  ooz
+  ale
+  twd
+Board: 
+  ooz
+  ale
+  txd
+Board: 
+  ooz
+  ale
+  tyd
+Board: 
+  ooz
+  ale
+  tzd
+Board: 
+  zoo
+  ela
+  ddt
+Board: 
+  zoo
+  ela
+  dat
+Board: 
+  zoo
+  ela
+  dbt
+Board: 
+  zoo
+  ela
+  dct
+Board: 
+  zoo
+  ela
+  det
+Board: 
+  zoo
+  ela
+  dft
+Board: 
+  zoo
+  ela
+  dgt
+Board: 
+  zoo
+  ela
+  dht
+Board: 
+  zoo
+  ela
+  dit
+Board: 
+  zoo
+  ela
+  djt
+Board: 
+  zoo
+  ela
+  dkt
+Board: 
+  zoo
+  ela
+  dlt
+Board: 
+  zoo
+  ela
+  dmt
+Board: 
+  zoo
+  ela
+  dnt
+Board: 
+  zoo
+  ela
+  dot
+Board: 
+  zoo
+  ela
+  dpt
+Board: 
+  zoo
+  ela
+  dqt
+Board: 
+  zoo
+  ela
+  drt
+Board: 
+  zoo
+  ela
+  dst
+Board: 
+  zoo
+  ela
+  dtt
+Board: 
+  zoo
+  ela
+  dut
+Board: 
+  zoo
+  ela
+  dvt
+Board: 
+  zoo
+  ela
+  dwt
+Board: 
+  zoo
+  ela
+  dxt
+Board: 
+  zoo
+  ela
+  dyt
+Board: 
+  zoo
+  ela
+  dzt
+Board: 
   tao
   alo
   dez
@@ -416,111 +420,111 @@ Board:
   zlo
   dez
 Board: 
-  zoo
-  ela
-  ddt
+  dez
+  dlo
+  tao
 Board: 
-  zoo
-  ela
+  dez
+  alo
+  tao
+Board: 
+  dez
+  blo
+  tao
+Board: 
+  dez
+  clo
+  tao
+Board: 
+  dez
+  elo
+  tao
+Board: 
+  dez
+  flo
+  tao
+Board: 
+  dez
+  glo
+  tao
+Board: 
+  dez
+  hlo
+  tao
+Board: 
+  dez
+  ilo
+  tao
+Board: 
+  dez
+  jlo
+  tao
+Board: 
+  dez
+  klo
+  tao
+Board: 
+  dez
+  llo
+  tao
+Board: 
+  dez
+  mlo
+  tao
+Board: 
+  dez
+  nlo
+  tao
+Board: 
+  dez
+  olo
+  tao
+Board: 
+  dez
+  plo
+  tao
+Board: 
+  dez
+  qlo
+  tao
+Board: 
+  dez
+  rlo
+  tao
+Board: 
+  dez
+  slo
+  tao
+Board: 
+  dez
+  tlo
+  tao
+Board: 
+  dez
+  ulo
+  tao
+Board: 
+  dez
+  vlo
+  tao
+Board: 
+  dez
+  wlo
+  tao
+Board: 
+  dez
+  xlo
+  tao
+Board: 
+  dez
+  ylo
+  tao
+Board: 
+  dez
+  zlo
+  tao
+Board: 
   dat
-Board: 
-  zoo
-  ela
-  dbt
-Board: 
-  zoo
-  ela
-  dct
-Board: 
-  zoo
-  ela
-  det
-Board: 
-  zoo
-  ela
-  dft
-Board: 
-  zoo
-  ela
-  dgt
-Board: 
-  zoo
-  ela
-  dht
-Board: 
-  zoo
-  ela
-  dit
-Board: 
-  zoo
-  ela
-  djt
-Board: 
-  zoo
-  ela
-  dkt
-Board: 
-  zoo
-  ela
-  dlt
-Board: 
-  zoo
-  ela
-  dmt
-Board: 
-  zoo
-  ela
-  dnt
-Board: 
-  zoo
-  ela
-  dot
-Board: 
-  zoo
-  ela
-  dpt
-Board: 
-  zoo
-  ela
-  dqt
-Board: 
-  zoo
-  ela
-  drt
-Board: 
-  zoo
-  ela
-  dst
-Board: 
-  zoo
-  ela
-  dtt
-Board: 
-  zoo
-  ela
-  dut
-Board: 
-  zoo
-  ela
-  dvt
-Board: 
-  zoo
-  ela
-  dwt
-Board: 
-  zoo
-  ela
-  dxt
-Board: 
-  zoo
-  ela
-  dyt
-Board: 
-  zoo
-  ela
-  dzt
-Board: 
-  dat
   ela
   zoo
 Board: 
@@ -624,9 +628,9 @@ Board:
   ela
   zoo
 Board: 
-  zed
-  old
-  oat
+  tdd
+  ale
+  ooz
 Board: 
   zed
   ola
@@ -728,106 +732,102 @@ Board:
   olz
   oat
 Board: 
-  dez
-  dlo
-  tao
+  tad
+  ale
+  ooz
 Board: 
-  dez
-  alo
-  tao
+  tbd
+  ale
+  ooz
 Board: 
-  dez
-  blo
-  tao
+  tcd
+  ale
+  ooz
 Board: 
-  dez
-  clo
-  tao
+  ted
+  ale
+  ooz
 Board: 
-  dez
-  elo
-  tao
+  tfd
+  ale
+  ooz
 Board: 
-  dez
-  flo
-  tao
+  tgd
+  ale
+  ooz
 Board: 
-  dez
-  glo
-  tao
+  thd
+  ale
+  ooz
 Board: 
-  dez
-  hlo
-  tao
+  tid
+  ale
+  ooz
 Board: 
-  dez
-  ilo
-  tao
+  tjd
+  ale
+  ooz
 Board: 
-  dez
-  jlo
-  tao
+  tkd
+  ale
+  ooz
 Board: 
-  dez
-  klo
-  tao
+  tld
+  ale
+  ooz
 Board: 
-  dez
-  llo
-  tao
+  tmd
+  ale
+  ooz
 Board: 
-  dez
-  mlo
-  tao
+  tnd
+  ale
+  ooz
 Board: 
-  dez
-  nlo
-  tao
+  tod
+  ale
+  ooz
 Board: 
-  dez
-  olo
-  tao
+  tpd
+  ale
+  ooz
 Board: 
-  dez
-  plo
-  tao
+  tqd
+  ale
+  ooz
 Board: 
-  dez
-  qlo
-  tao
+  trd
+  ale
+  ooz
 Board: 
-  dez
-  rlo
-  tao
+  tsd
+  ale
+  ooz
 Board: 
-  dez
-  slo
-  tao
+  ttd
+  ale
+  ooz
 Board: 
-  dez
-  tlo
-  tao
+  tud
+  ale
+  ooz
 Board: 
-  dez
-  ulo
-  tao
+  tvd
+  ale
+  ooz
 Board: 
-  dez
-  vlo
-  tao
+  twd
+  ale
+  ooz
 Board: 
-  dez
-  wlo
-  tao
+  txd
+  ale
+  ooz
 Board: 
-  dez
-  xlo
-  tao
+  tyd
+  ale
+  ooz
 Board: 
-  dez
-  ylo
-  tao
-Board: 
-  dez
-  zlo
-  tao
+  tzd
+  ale
+  ooz

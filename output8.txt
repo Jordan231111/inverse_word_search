@@ -1,17 +1,5 @@
 4 solution(s)
 Board: 
-  tengamr
-  avocado
-  olaffub
-  soahcui
-  tradecn
-Board: 
-  tradecn
-  soahcui
-  olaffub
-  avocado
-  tengamr
-Board: 
   rmagnet
   odacova
   buffalo
@@ -23,3 +11,15 @@ Board:
   buffalo
   odacova
   rmagnet
+Board: 
+  tengamr
+  avocado
+  olaffub
+  soahcui
+  tradecn
+Board: 
+  tradecn
+  soahcui
+  olaffub
+  avocado
+  tengamr
