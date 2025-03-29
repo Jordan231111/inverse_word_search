@@ -1,0 +1,4 @@
+1 solution(s)
+Board: 
+  cat
+  one

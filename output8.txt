@@ -6,17 +6,17 @@ Board:
   soahcui
   tradecn
 Board: 
-  rmagnet
-  odacova
-  buffalo
-  iuchaos
-  ncedart
-Board: 
   tradecn
   soahcui
   olaffub
   avocado
   tengamr
+Board: 
+  rmagnet
+  odacova
+  buffalo
+  iuchaos
+  ncedart
 Board: 
   ncedart
   iuchaos

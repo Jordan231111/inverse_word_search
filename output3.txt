@@ -1,5 +1,15 @@
 8 solution(s)
 Board: 
+  arid
+  arts
+  rest
+  east
+Board: 
+  east
+  rest
+  arts
+  arid
+Board: 
   aare
   rrea
   itss
@@ -10,20 +20,10 @@ Board:
   ssti
   ttsd
 Board: 
-  arid
-  arts
-  rest
-  east
-Board: 
   dira
   stra
   tser
   tsae
-Board: 
-  east
-  rest
-  arts
-  arid
 Board: 
   tsae
   tser

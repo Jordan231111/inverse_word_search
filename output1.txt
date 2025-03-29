@@ -6,17 +6,17 @@ Board:
   cat
   eno
 Board: 
-  tac
-  one
-Board: 
-  tac
-  eno
-Board: 
   one
   cat
 Board: 
   eno
   cat
+Board: 
+  tac
+  one
+Board: 
+  tac
+  eno
 Board: 
   one
   tac

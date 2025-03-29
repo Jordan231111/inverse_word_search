@@ -1,4 +1,216 @@
-216 solution(s)
+208 solution(s)
+Board: 
+  ooz
+  ale
+  tad
+Board: 
+  ooz
+  ale
+  tbd
+Board: 
+  ooz
+  ale
+  tcd
+Board: 
+  ooz
+  ale
+  tdd
+Board: 
+  ooz
+  ale
+  ted
+Board: 
+  ooz
+  ale
+  tfd
+Board: 
+  ooz
+  ale
+  tgd
+Board: 
+  ooz
+  ale
+  thd
+Board: 
+  ooz
+  ale
+  tid
+Board: 
+  ooz
+  ale
+  tjd
+Board: 
+  ooz
+  ale
+  tkd
+Board: 
+  ooz
+  ale
+  tld
+Board: 
+  ooz
+  ale
+  tmd
+Board: 
+  ooz
+  ale
+  tnd
+Board: 
+  ooz
+  ale
+  tod
+Board: 
+  ooz
+  ale
+  tpd
+Board: 
+  ooz
+  ale
+  tqd
+Board: 
+  ooz
+  ale
+  trd
+Board: 
+  ooz
+  ale
+  tsd
+Board: 
+  ooz
+  ale
+  ttd
+Board: 
+  ooz
+  ale
+  tud
+Board: 
+  ooz
+  ale
+  tvd
+Board: 
+  ooz
+  ale
+  twd
+Board: 
+  ooz
+  ale
+  txd
+Board: 
+  ooz
+  ale
+  tyd
+Board: 
+  ooz
+  ale
+  tzd
+Board: 
+  tdd
+  ale
+  ooz
+Board: 
+  tad
+  ale
+  ooz
+Board: 
+  tbd
+  ale
+  ooz
+Board: 
+  tcd
+  ale
+  ooz
+Board: 
+  ted
+  ale
+  ooz
+Board: 
+  tfd
+  ale
+  ooz
+Board: 
+  tgd
+  ale
+  ooz
+Board: 
+  thd
+  ale
+  ooz
+Board: 
+  tid
+  ale
+  ooz
+Board: 
+  tjd
+  ale
+  ooz
+Board: 
+  tkd
+  ale
+  ooz
+Board: 
+  tld
+  ale
+  ooz
+Board: 
+  tmd
+  ale
+  ooz
+Board: 
+  tnd
+  ale
+  ooz
+Board: 
+  tod
+  ale
+  ooz
+Board: 
+  tpd
+  ale
+  ooz
+Board: 
+  tqd
+  ale
+  ooz
+Board: 
+  trd
+  ale
+  ooz
+Board: 
+  tsd
+  ale
+  ooz
+Board: 
+  ttd
+  ale
+  ooz
+Board: 
+  tud
+  ale
+  ooz
+Board: 
+  tvd
+  ale
+  ooz
+Board: 
+  twd
+  ale
+  ooz
+Board: 
+  txd
+  ale
+  ooz
+Board: 
+  tyd
+  ale
+  ooz
+Board: 
+  tzd
+  ale
+  ooz
+Board: 
+  oat
+  old
+  zed
 Board: 
   oat
   ola
@@ -10,10 +222,6 @@ Board:
 Board: 
   oat
   olc
-  zed
-Board: 
-  oat
-  old
   zed
 Board: 
   oat
@@ -102,10 +310,6 @@ Board:
 Board: 
   oat
   olz
-  zed
-Board: 
-  oat
-  old
   zed
 Board: 
   tao
@@ -212,226 +416,6 @@ Board:
   zlo
   dez
 Board: 
-  tao
-  dlo
-  dez
-Board: 
-  ooz
-  ale
-  tad
-Board: 
-  ooz
-  ale
-  tbd
-Board: 
-  ooz
-  ale
-  tcd
-Board: 
-  ooz
-  ale
-  tdd
-Board: 
-  ooz
-  ale
-  ted
-Board: 
-  ooz
-  ale
-  tfd
-Board: 
-  ooz
-  ale
-  tgd
-Board: 
-  ooz
-  ale
-  thd
-Board: 
-  ooz
-  ale
-  tid
-Board: 
-  ooz
-  ale
-  tjd
-Board: 
-  ooz
-  ale
-  tkd
-Board: 
-  ooz
-  ale
-  tld
-Board: 
-  ooz
-  ale
-  tmd
-Board: 
-  ooz
-  ale
-  tnd
-Board: 
-  ooz
-  ale
-  tod
-Board: 
-  ooz
-  ale
-  tpd
-Board: 
-  ooz
-  ale
-  tqd
-Board: 
-  ooz
-  ale
-  trd
-Board: 
-  ooz
-  ale
-  tsd
-Board: 
-  ooz
-  ale
-  ttd
-Board: 
-  ooz
-  ale
-  tud
-Board: 
-  ooz
-  ale
-  tvd
-Board: 
-  ooz
-  ale
-  twd
-Board: 
-  ooz
-  ale
-  txd
-Board: 
-  ooz
-  ale
-  tyd
-Board: 
-  ooz
-  ale
-  tzd
-Board: 
-  ooz
-  ale
-  tdd
-Board: 
-  tad
-  ale
-  ooz
-Board: 
-  tbd
-  ale
-  ooz
-Board: 
-  tcd
-  ale
-  ooz
-Board: 
-  tdd
-  ale
-  ooz
-Board: 
-  ted
-  ale
-  ooz
-Board: 
-  tfd
-  ale
-  ooz
-Board: 
-  tgd
-  ale
-  ooz
-Board: 
-  thd
-  ale
-  ooz
-Board: 
-  tid
-  ale
-  ooz
-Board: 
-  tjd
-  ale
-  ooz
-Board: 
-  tkd
-  ale
-  ooz
-Board: 
-  tld
-  ale
-  ooz
-Board: 
-  tmd
-  ale
-  ooz
-Board: 
-  tnd
-  ale
-  ooz
-Board: 
-  tod
-  ale
-  ooz
-Board: 
-  tpd
-  ale
-  ooz
-Board: 
-  tqd
-  ale
-  ooz
-Board: 
-  trd
-  ale
-  ooz
-Board: 
-  tsd
-  ale
-  ooz
-Board: 
-  ttd
-  ale
-  ooz
-Board: 
-  tud
-  ale
-  ooz
-Board: 
-  tvd
-  ale
-  ooz
-Board: 
-  twd
-  ale
-  ooz
-Board: 
-  txd
-  ale
-  ooz
-Board: 
-  tyd
-  ale
-  ooz
-Board: 
-  tzd
-  ale
-  ooz
-Board: 
-  tdd
-  ale
-  ooz
-Board: 
   zoo
   ela
   ddt
@@ -447,10 +431,6 @@ Board:
   zoo
   ela
   dct
-Board: 
-  zoo
-  ela
-  ddt
 Board: 
   zoo
   ela
@@ -539,10 +519,6 @@ Board:
   zoo
   ela
   dzt
-Board: 
-  ddt
-  ela
-  zoo
 Board: 
   dat
   ela
@@ -665,10 +641,6 @@ Board:
   oat
 Board: 
   zed
-  old
-  oat
-Board: 
-  zed
   ole
   oat
 Board: 
@@ -770,10 +742,6 @@ Board:
 Board: 
   dez
   clo
-  tao
-Board: 
-  dez
-  dlo
   tao
 Board: 
   dez
