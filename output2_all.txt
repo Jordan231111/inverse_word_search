@@ -1,7 +1,0 @@
-2 solution(s)
-Board: 
-  cat
-  one
-Board: 
-  tac
-  eno

@@ -3,11 +3,11 @@ Board:
   cat
   one
 Board: 
-  cat
-  eno
-Board: 
-  tac
   one
+  cat
 Board: 
   tac
   eno
+Board: 
+  eno
+  tac

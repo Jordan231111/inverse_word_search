@@ -67,7 +67,7 @@ private:
 
     // Try to place a word at a specific position and direction
     inline bool canPlaceWord(const std::string& word, int row, int col, int dir) const {
-        const size_t wordLen = word.length(); // Cache word length
+        const size_t wordLen = word.length();
         
         // Pre-compute end coordinates
         const int endRow = row + (wordLen - 1) * dy[dir];
@@ -78,16 +78,18 @@ private:
             return false;
         }
         
+        // Calculate the starting flat index and the direction offset
+        const int startIdx = flatIndex(row, col);
+        const int dirOffset = dy[dir] * width + dx[dir];
+        
         // Check if the word can be placed at this position
+        int idx = startIdx;
         for (size_t i = 0; i < wordLen; i++) {
-            const int r = row + i * dy[dir];
-            const int c = col + i * dx[dir];
-            const int idx = flatIndex(r, c);
-            
             // If the cell is already filled and doesn't match the word's letter, can't place
             if (grid[idx] != '.' && grid[idx] != word[i]) {
                 return false;
             }
+            idx += dirOffset;
         }
         
         return true;
@@ -295,57 +297,83 @@ private:
         }
         
         const std::string& word = requiredWords[wordIndex];
-        const size_t wordLen = word.length(); // Cache word length
+        const size_t wordLen = word.length();
         bool foundSolution = false;
         
-        // Try all possible positions and directions for this word
+        // Fixed-size array to track changes - no heap allocations
+        const int MAX_CHANGES = 20;
+        std::pair<int, char> changes[MAX_CHANGES];
+        int numChanges;
+        
+        // Pre-compute direction offsets in flat grid coordinates
+        // This eliminates repeated calculations in the inner loops
+        const int dirOffsets[8] = {
+            1,              // right
+            width + 1,      // down-right
+            width,          // down
+            width - 1,      // down-left
+            -1,             // left
+            -width - 1,     // up-left
+            -width,         // up
+            -width + 1      // up-right
+        };
+        
+        // Try all possible positions and directions
         for (int dir = 0; dir < 8; dir++) {
-            // Calculate the maximum possible position for this direction and word length
+            // Get pre-computed direction offset
+            const int dirOffset = dirOffsets[dir];
+            
+            // Boundary calculations
             const int dirMaxOffset = static_cast<int>(wordLen) - 1;
+            int minRow = (dy[dir] < 0) ? dirMaxOffset : 0;
+            int minCol = (dx[dir] < 0) ? dirMaxOffset : 0;
+            int maxRow = height - ((dy[dir] > 0) ? dirMaxOffset : 0);
+            int maxCol = width - ((dx[dir] > 0) ? dirMaxOffset : 0);
             
-            // For directions that go up (negative y), start from at least row dirMaxOffset
-            int minRow = 0;
-            if (dy[dir] < 0) {
-                minRow = dirMaxOffset;
-            }
-            
-            // For directions that go left (negative x), start from at least column dirMaxOffset
-            int minCol = 0;
-            if (dx[dir] < 0) {
-                minCol = dirMaxOffset;
-            }
-            
-            // Calculate maximum valid row and column for this direction and word length
-            int maxRow = height;
-            if (dy[dir] > 0) {
-                maxRow = height - dirMaxOffset;
-            }
-            
-            int maxCol = width;
-            if (dx[dir] > 0) {
-                maxCol = width - dirMaxOffset;
-            }
-            
-            // Only iterate through valid positions for this word and direction
             for (int row = minRow; row < maxRow; row++) {
                 for (int col = minCol; col < maxCol; col++) {
-                    if (canPlaceWord(word, row, col, dir)) {
-                        // Place the word
-                        placeWord(word, row, col, dir);
+                    // Fast in-place canPlaceWord check
+                    int idx = flatIndex(row, col);
+                    bool canPlace = true;
+                    
+                    // Check if all cells are available
+                    for (size_t i = 0; i < wordLen; i++) {
+                        if (grid[idx] != '.' && grid[idx] != word[i]) {
+                            canPlace = false;
+                            break;
+                        }
+                        idx += dirOffset;
+                    }
+                    
+                    if (canPlace) {
+                        // Place word and track changes
+                        numChanges = 0;
+                        idx = flatIndex(row, col);
+                        
+                        for (size_t i = 0; i < wordLen; i++) {
+                            if (grid[idx] != word[i]) {
+                                changes[numChanges++] = {idx, grid[idx]};
+                                grid[idx] = word[i];
+                            }
+                            idx += dirOffset;
+                        }
+                        
+                        // Add to placements
                         placements.push_back({word, row, col, dir, wordLen});
                         
                         // Try to place the next word
                         bool result = placeWords(wordIndex + 1, placements);
                         foundSolution = foundSolution || result;
                         
-                        // If we're only looking for one solution and we found it, return early
                         if (result && !findAllSolutions) {
                             return true;
                         }
                         
-                        // Backtrack - remove the word and try another position
+                        // Backtrack - restore only changed cells
                         placements.pop_back();
-                        removeWord(word, row, col, dir, placements);
+                        for (int i = 0; i < numChanges; i++) {
+                            grid[changes[i].first] = changes[i].second;
+                        }
                     }
                 }
             }
