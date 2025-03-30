@@ -4,13 +4,13 @@ Board:
   amountduolilith
   aboreurtillicit
 Board: 
-  aboreurtillicit
-  amountduolilith
-  abaardvarktilde
-Board: 
   edlitkravdraaba
   htililoudtnuoma
   ticillitrueroba
+Board: 
+  aboreurtillicit
+  amountduolilith
+  abaardvarktilde
 Board: 
   ticillitrueroba
   htililoudtnuoma

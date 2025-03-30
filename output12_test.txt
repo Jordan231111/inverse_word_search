@@ -1,4 +1,0 @@
-Board: 
-  abaardvarktilde
-  amountduolilith
-  aboreurtillicit
