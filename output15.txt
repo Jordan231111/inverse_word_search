@@ -6,17 +6,17 @@ Board:
   aeshapesea
   reasemennl
 Board: 
-  reasemennl
-  aeshapesea
-  patronship
-  incredible
-  fieryhuman
-Board: 
   namuhyreif
   elbidercni
   pihsnortap
   aesepahsea
   lnnemesaer
+Board: 
+  reasemennl
+  aeshapesea
+  patronship
+  incredible
+  fieryhuman
 Board: 
   lnnemesaer
   aesepahsea

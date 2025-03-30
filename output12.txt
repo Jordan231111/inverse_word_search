@@ -1,17 +1,17 @@
 4 solution(s)
 Board: 
-  abaardvarktilde
-  amountduolilith
-  aboreurtillicit
-Board: 
   edlitkravdraaba
   htililoudtnuoma
   ticillitrueroba
 Board: 
-  aboreurtillicit
-  amountduolilith
-  abaardvarktilde
-Board: 
   ticillitrueroba
   htililoudtnuoma
   edlitkravdraaba
+Board: 
+  abaardvarktilde
+  amountduolilith
+  aboreurtillicit
+Board: 
+  aboreurtillicit
+  amountduolilith
+  abaardvarktilde
