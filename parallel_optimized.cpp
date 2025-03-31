@@ -64,11 +64,11 @@ public:
     void waitForTask(std::function<void()>& task) {
         std::unique_lock<std::mutex> lock(queueMutex);
         queueCondition.wait(lock, [this] { return isShuttingDown || !taskQueue.empty(); });
-
+        
         if (isShuttingDown && taskQueue.empty()) {
             return;
         }
-
+        
         if (!taskQueue.empty()) {
             task = std::move(taskQueue.front());
             taskQueue.pop();
@@ -103,21 +103,21 @@ private:
     std::vector<std::thread> workerThreads;
     WorkQueue workQueue;
     std::atomic<bool> isShuttingDown{false};
-
+    
 public:
     explicit ThreadPool(size_t numThreads = 0) {
         if (numThreads == 0) {
             numThreads = std::thread::hardware_concurrency();
             if (numThreads == 0) numThreads = 4;
         }
-
+        
         for (size_t threadIdx = 0; threadIdx < numThreads; ++threadIdx) {
             workerThreads.emplace_back([this] {
                 std::function<void()> task;
-
+                
                 while (!isShuttingDown) {
                     workQueue.waitForTask(task);
-
+                    
                     if (task) {
                         task();
                         task = nullptr;
@@ -128,41 +128,41 @@ public:
             });
         }
     }
-
+    
     // Rule of five: declare destructor and delete other special members
     ~ThreadPool() {
         isShuttingDown = true;
         workQueue.shutdown();
-
+        
         for (auto& workerThread : workerThreads) {
             if (workerThread.joinable()) {
                 workerThread.join();
             }
         }
     }
-
+    
     // Delete copy/move operations for thread safety
     ThreadPool(const ThreadPool&) = delete;
     ThreadPool& operator=(const ThreadPool&) = delete;
     ThreadPool(ThreadPool&&) = delete;
     ThreadPool& operator=(ThreadPool&&) = delete;
-
+    
     template<class F, class... Args>
     [[nodiscard]] std::future<std::invoke_result_t<F, Args...>> // Using invoke_result instead of result_of
     enqueue(F&& func, Args&&... args) {
         using ReturnType = std::invoke_result_t<F, Args...>;
-
+        
         auto taskPackage = std::make_shared<std::packaged_task<ReturnType()>>(
             std::bind(std::forward<F>(func), std::forward<Args>(args)...)
         );
-
+        
         std::future<ReturnType> resultFuture = taskPackage->get_future();
-
+        
         workQueue.push([taskPackage] { (*taskPackage)(); });
-
+        
         return resultFuture;
     }
-
+    
     [[nodiscard]] size_t num_threads() const noexcept {
         return workerThreads.size();
     }
@@ -185,16 +185,16 @@ private:
     [[nodiscard]] inline int flatIndex(int row, int col) const noexcept {
         return row * gridWidth + col;
     }
-
+    
 public:
     OptimizedInverseWordSearch(int width, int height,
                       const std::vector<std::string>& required,
                       const std::vector<std::string>& forbidden,
                       bool findAll)
-        : gridWidth(width), gridHeight(height),
+        : gridWidth(width), gridHeight(height), 
           requiredWords(required), forbiddenWords(forbidden),
           findAllSolutions(findAll) {
-
+        
         // Pre-compute direction offsets for faster grid traversal
         for (int direction = 0; direction < 8; direction++) {
             directionOffsets[direction] = directionOffsetY[direction] * gridWidth + directionOffsetX[direction];
@@ -205,27 +205,27 @@ public:
     void optimizeWordOrder() {
         const size_t wordCount = requiredWords.size();
         if (wordCount <= 1) return;
-
+        
         // Score words based on constraint potential and rarity
         std::vector<std::pair<int, std::string>> scoredWords;
         scoredWords.reserve(wordCount);
-
+        
         for (const auto& currentWord : requiredWords) {
             int scoreValue = 0;
-
+            
             // Longer words are placed first
             scoreValue += currentWord.length() * 5;
-
+            
             // Count unique letters (higher uniqueness = higher score)
             bool seenLetters[26] = {false};
             int uniqueLetterCount = 0;
-
+            
             for (const char letter : currentWord) {
                 int letterIdx = letter - 'a';
                 if (letterIdx >= 0 && letterIdx < 26 && !seenLetters[letterIdx]) {
                     seenLetters[letterIdx] = true;
                     uniqueLetterCount++;
-
+                    
                     // Rarer letters get higher scores
                     switch (letter) {
                         case 'q': case 'x': case 'z': case 'j': scoreValue += 10; break;
@@ -235,13 +235,13 @@ public:
                     }
                 }
             }
-
+            
             scoreValue += uniqueLetterCount * 3;
-            scoredWords.emplace_back(scoreValue, currentWord);
+            scoredWords.push_back(std::make_pair(scoreValue, currentWord));
         }
-
+        
         // Sort words by score (descending)
-        std::sort(scoredWords.begin(), scoredWords.end(),
+        std::sort(scoredWords.begin(), scoredWords.end(), 
                  [](const auto& a, const auto& b) {
                      // If scores differ, sort by score
                      if (a.first != b.first) {
@@ -250,11 +250,11 @@ public:
                      // If scores are equal, sort by length
                      return a.second.length() > b.second.length();
                  });
-
+        
         // Update requiredWords with sorted order
         requiredWords.clear();
         for (const auto& [score, word] : scoredWords) { // Using structured binding
-            requiredWords.emplace_back(word);
+            requiredWords.push_back(word);
         }
     }
 
@@ -263,20 +263,20 @@ public:
         solutions.clear();
         solutionHashes.clear();
         solutionFound.store(false);
-
+        
         // Create a thread pool with hardware concurrency
         ThreadPool threadPool;
         int numThreads = threadPool.num_threads();
-
+        
         // First calculate all possible placements for the first word
         struct FirstPlacement {
             int startRow, startCol, direction;
         };
-
+        
         std::vector<FirstPlacement> firstPlacements;
         const std::string& firstWord = requiredWords[0];
         const size_t firstWordLen = firstWord.length();
-
+        
         for (int direction = 0; direction < 8; direction++) {
             // Calculate valid bounds for this direction
             const int dirMaxOffset = static_cast<int>(firstWordLen) - 1;
@@ -284,14 +284,14 @@ public:
             int minCol = (directionOffsetX[direction] < 0) ? dirMaxOffset : 0;
             int maxRow = gridHeight - ((directionOffsetY[direction] > 0) ? dirMaxOffset : 0);
             int maxCol = gridWidth - ((directionOffsetX[direction] > 0) ? dirMaxOffset : 0);
-
+            
             for (int row = minRow; row < maxRow; row++) {
                 for (int col = minCol; col < maxCol; col++) {
-                    firstPlacements.emplace_back(row, col, direction);
+                    firstPlacements.push_back({row, col, direction});
                 }
             }
         }
-
+        
         // If too few placements, just solve sequentially
         if (firstPlacements.size() < 20) [[unlikely]] {
             return solveSequential();
@@ -300,10 +300,10 @@ public:
         // Divide placements into batches for each thread
         int placementsPerThread = (firstPlacements.size() + numThreads - 1) / numThreads;
         std::vector<std::future<bool>> futures;
-
+        
         for (size_t batchStart = 0; batchStart < firstPlacements.size(); batchStart += placementsPerThread) {
             size_t batchEnd = std::min(batchStart + placementsPerThread, firstPlacements.size());
-
+            
             futures.push_back(threadPool.enqueue(
                 [this, &firstPlacements, batchStart, batchEnd]() {
                     for (size_t placementIdx = batchStart; placementIdx < batchEnd; placementIdx++) {
@@ -311,84 +311,84 @@ public:
                         if (!findAllSolutions && solutionFound.load(std::memory_order_acquire)) [[unlikely]] {
                             return true;
                         }
-
+                        
                         const auto& placement = firstPlacements[placementIdx];
-
+                        
                         // Initialize grid
                         std::vector<char> grid(gridWidth * gridHeight, '.');
                         std::vector<WordPlacement> placements;
-
+                        
                         // Place first word
                         const std::string& word = requiredWords[0];
                         const size_t wordLen = word.length();
-
+                        
                         int gridPos = flatIndex(placement.startRow, placement.startCol);
                         const int dirOffset = directionOffsets[placement.direction];
-
+                        
                         for (size_t charIdx = 0; charIdx < wordLen; charIdx++) {
                             grid[gridPos] = word[charIdx];
                             gridPos += dirOffset;
                         }
-
+                        
                         // Add to placements
-                        placements.emplace_back(word, placement.startRow, placement.startCol, placement.direction, wordLen);
-
+                        placements.push_back({word, placement.startRow, placement.startCol, placement.direction, wordLen});
+                        
                         // Try to place remaining words
                         if (placeWords(1, placements, grid)) {
                             return true;
                         }
                     }
-
+                    
                     return false;
                 }
             ));
         }
-
+        
         // Wait for results
         bool success = false;
         for (auto& future : futures) {
             success = future.get() || success;
-
+            
             if (!findAllSolutions && success) [[unlikely]] {
                 break;
             }
         }
-
+        
         return success;
     }
-
+    
     [[nodiscard]] bool solveSequential() {
         std::vector<char> grid(gridWidth * gridHeight, '.');
         std::vector<WordPlacement> placements;
-
+        
         const std::string& firstWord = requiredWords[0];
         const size_t firstWordLen = firstWord.length();
         bool found = false;
-
+        
         for (int direction = 0; direction < 8 && !found; direction++) {
             const int dirMaxOffset = static_cast<int>(firstWordLen) - 1;
             int minRow = (directionOffsetY[direction] < 0) ? dirMaxOffset : 0;
             int minCol = (directionOffsetX[direction] < 0) ? dirMaxOffset : 0;
             int maxRow = gridHeight - ((directionOffsetY[direction] > 0) ? dirMaxOffset : 0);
             int maxCol = gridWidth - ((directionOffsetX[direction] > 0) ? dirMaxOffset : 0);
-
+            
             for (int row = minRow; row < maxRow && !found; row++) {
                 for (int col = minCol; col < maxCol && !found; col++) {
                     // Reset grid
                     std::fill(grid.begin(), grid.end(), '.');
                     placements.clear();
-
+                    
                     // Place first word
                     int gridPos = flatIndex(row, col);
                     const int dirOffset = directionOffsets[direction];
-
+                    
                     for (size_t charIdx = 0; charIdx < firstWordLen; charIdx++) {
                         grid[gridPos] = firstWord[charIdx];
                         gridPos += dirOffset;
                     }
-
-                    placements.emplace_back(firstWord, row, col, direction, firstWordLen);
-
+                    
+                    placements.push_back({firstWord, row, col, direction, firstWordLen});
+                    
                     if (placeWords(1, placements, grid)) {
                         found = true;
                         if (!findAllSolutions) {
@@ -398,7 +398,7 @@ public:
                 }
             }
         }
-
+        
         return found;
     }
 
@@ -410,7 +410,7 @@ private:
     // Check if word exists in the grid
     [[nodiscard]] bool wordExists(std::string_view word, const std::vector<char>& grid) const {
         const size_t wordLen = word.length();
-
+        
         // Optimize for single letter words
         if (wordLen == 1) [[unlikely]] {
             char letterToFind = word[0];
@@ -423,7 +423,7 @@ private:
         }
 
         char firstChar = word[0];
-
+        
         // Find occurrences of first letter
         for (int row = 0; row < gridHeight; row++) {
             for (int col = 0; col < gridWidth; col++) {
@@ -432,12 +432,12 @@ private:
                     for (int direction = 0; direction < 8; direction++) {
                         int endRow = row + directionOffsetY[direction] * (wordLen - 1);
                         int endCol = col + directionOffsetX[direction] * (wordLen - 1);
-
+                        
                         // Skip out of bounds
                         if (endRow < 0 || endRow >= gridHeight || endCol < 0 || endCol >= gridWidth) {
                             continue;
                         }
-
+                        
                         // Check if word matches
                         bool match = true;
                         for (size_t charIdx = 1; charIdx < wordLen; charIdx++) {
@@ -448,7 +448,7 @@ private:
                                 break;
                             }
                         }
-
+                        
                         if (match) {
                             return true;
                         }
@@ -456,33 +456,33 @@ private:
                 }
             }
         }
-
+        
         return false;
     }
 
     // Try to place a word at a specific position
     [[nodiscard]] bool canPlaceWord(std::string_view word, int row, int col, int direction, const std::vector<char>& grid) const {
         const size_t wordLen = word.length();
-
+        
         // Check bounds
         int endRow = row + directionOffsetY[direction] * (wordLen - 1);
         int endCol = col + directionOffsetX[direction] * (wordLen - 1);
-
+        
         if (endRow < 0 || endRow >= gridHeight || endCol < 0 || endCol >= gridWidth) {
             return false;
         }
-
+        
         // Check if word can be placed
         int gridPos = flatIndex(row, col);
         int dirOffset = directionOffsets[direction];
-
+        
         for (size_t charIdx = 0; charIdx < wordLen; charIdx++) {
             if (grid[gridPos] != '.' && grid[gridPos] != word[charIdx]) {
                 return false;
             }
             gridPos += dirOffset;
         }
-
+        
         return true;
     }
 
@@ -494,62 +494,15 @@ private:
                 return false;
             }
         }
-
+        
         // Check forbidden words
         for (const auto& forbiddenWord : forbiddenWords) {
             if (wordExists(forbiddenWord, grid)) {
                 return false;
             }
         }
-
+        
         return true;
-    }
-
-    // Check if placing a character at the given position completes any forbidden word
-    [[nodiscard]] bool checkForbiddenCompletion(std::string_view forbiddenWord, int placedRow, int placedCol, const std::vector<char>& grid) const {
-        const size_t wordLen = forbiddenWord.length();
-        if (wordLen == 0) return false; // Cannot complete an empty word
-
-        // Check all 8 directions
-        for (int direction = 0; direction < 8; ++direction) {
-            // For each direction, check if the placed character could be any position within the forbidden word
-            for (size_t charOffsetInWord = 0; charOffsetInWord < wordLen; ++charOffsetInWord) {
-                // Calculate the potential start position of the forbidden word if the placed char is at charOffsetInWord
-                int startRow = placedRow - directionOffsetY[direction] * charOffsetInWord;
-                int startCol = placedCol - directionOffsetX[direction] * charOffsetInWord;
-
-                // Boundary check for the start position
-                if (startRow < 0 || startRow >= gridHeight || startCol < 0 || startCol >= gridWidth) {
-                    continue; // Potential start is out of bounds
-                }
-
-                // Boundary check for the end position
-                int endRow = startRow + directionOffsetY[direction] * (wordLen - 1);
-                int endCol = startCol + directionOffsetX[direction] * (wordLen - 1);
-                if (endRow < 0 || endRow >= gridHeight || endCol < 0 || endCol >= gridWidth) {
-                    continue; // Potential end is out of bounds
-                }
-
-                // Now check if the word matches along this line *exactly*
-                bool match = true;
-                int currentGridPos = flatIndex(startRow, startCol);
-                int dirOffset = directionOffsets[direction];
-                for (size_t checkIdx = 0; checkIdx < wordLen; ++checkIdx) {
-                    // The character at the current grid position MUST match the forbidden word character.
-                    // No '.' characters are allowed because we are checking for a fully completed forbidden word.
-                    if (grid[currentGridPos] != forbiddenWord[checkIdx]) {
-                        match = false;
-                        break;
-                    }
-                    currentGridPos += dirOffset;
-                }
-
-                if (match) {
-                    return true; // Found the forbidden word passing through the newly placed character
-                }
-            }
-        }
-        return false; // No forbidden word completed by placing this character
     }
 
     // Fill empty cells
@@ -558,19 +511,19 @@ private:
         if (!findAllSolutions && solutionFound.load(std::memory_order_acquire)) [[unlikely]] {
             return false;
         }
-
+        
         // If we've filled the entire grid, check if it's valid
         if (row >= gridHeight) [[unlikely]] {
             if (isValidGrid(grid)) {
                 // Convert to string for hash
                 std::string gridHash(grid.begin(), grid.end());
-
+                
                 // Lock for updating solutions
                 std::lock_guard<std::mutex> lock(solutionsMutex);
-
+                
                 if (solutionHashes.find(gridHash) == solutionHashes.end()) {
                     solutionHashes.insert(gridHash);
-
+                    
                     // Convert flat grid to 2D for output
                     std::vector<std::vector<char>> solution(gridHeight, std::vector<char>(gridWidth));
                     for (int r = 0; r < gridHeight; r++) {
@@ -578,20 +531,20 @@ private:
                             solution[r][c] = grid[flatIndex(r, c)];
                         }
                     }
-
-                    solutions.emplace_back(solution);
-
+                    
+                    solutions.push_back(solution);
+                    
                     if (!findAllSolutions) {
                         solutionFound.store(true, std::memory_order_release);
                     }
-
+                    
                     return true;
                 }
             }
-
+            
             return false;
         }
-
+        
         // Calculate next position
         int nextRow = row;
         int nextCol = col + 1;
@@ -599,47 +552,41 @@ private:
             nextRow++;
             nextCol = 0;
         }
-
+        
         // If cell is already filled, move to next
         if (grid[flatIndex(row, col)] != '.') {
             return fillEmptyCells(nextRow, nextCol, grid);
         }
-
+        
         // Try each letter
-        bool foundPath = false; // Track if any path from here leads to a solution (for "find all")
         for (char letter = 'a'; letter <= 'z'; letter++) {
             grid[flatIndex(row, col)] = letter;
-
+            
             // Check if this creates any forbidden words
-            bool forbiddenFound = false;
+            bool validPlacement = true;
             for (const auto& forbiddenWord : forbiddenWords) {
                 if (forbiddenWord.length() == 1 && forbiddenWord[0] == letter) {
-                    forbiddenFound = true;
+                    validPlacement = false;
                     break;
                 }
-
+                
                 // Only check words that contain this letter (optimization)
                 if (forbiddenWord.find(letter) != std::string::npos) {
-                    // Use localized check instead of scanning the entire grid
-                    if (checkForbiddenCompletion(forbiddenWord, row, col, grid)) {
-                        forbiddenFound = true;
+                    if (wordExists(forbiddenWord, grid)) {
+                        validPlacement = false;
                         break;
                     }
                 }
             }
-
-            if (!forbiddenFound && fillEmptyCells(nextRow, nextCol, grid)) {
-                if (!findAllSolutions) return true;
-                // If finding all solutions, track that we found a valid path but continue searching
-                foundPath = true;
+            
+            if (validPlacement && fillEmptyCells(nextRow, nextCol, grid)) {
+                return true;
             }
         }
-
+        
         // Backtrack
         grid[flatIndex(row, col)] = '.';
-        // In "find all" mode, return whether any path led to a solution
-        // In "find one" mode, return true only if a solution was found and we're exiting early
-        return foundPath || (!findAllSolutions && solutionFound.load(std::memory_order_acquire));
+        return false;
     }
 
     // Place words recursively
@@ -648,25 +595,27 @@ private:
         if (!findAllSolutions && solutionFound.load(std::memory_order_acquire)) [[unlikely]] {
             return false;
         }
-
+        
         // If all words placed, fill remaining cells
         if (wordIndex >= static_cast<int>(requiredWords.size())) [[unlikely]] {
             return fillEmptyCells(0, 0, grid);
         }
-
+        
         const std::string& currentWord = requiredWords[wordIndex];
         const size_t wordLen = currentWord.length();
         bool foundSolution = false;
-
+        
         // Track changes for efficient backtracking
         struct CellChange {
             int position;
             char previousChar;
         };
-        // *** SINGLE CHANGE: Moved vector declaration outside loops ***
-        std::vector<CellChange> changes;
-        changes.reserve(wordLen > 0 ? wordLen : 1); // Reserve capacity once per call
-
+        
+        // Use thread_local storage to avoid repeated allocation/deallocation during recursion
+        static thread_local std::vector<CellChange> changes;
+        changes.clear();
+        changes.reserve(wordLen);
+        
         // Try all possible positions
         for (int direction = 0; direction < 8; direction++) {
             // Boundary calculations
@@ -675,58 +624,49 @@ private:
             int minCol = (directionOffsetX[direction] < 0) ? dirMaxOffset : 0;
             int maxRow = gridHeight - ((directionOffsetY[direction] > 0) ? dirMaxOffset : 0);
             int maxCol = gridWidth - ((directionOffsetX[direction] > 0) ? dirMaxOffset : 0);
-
+            
             for (int row = minRow; row < maxRow; row++) {
                 for (int col = minCol; col < maxCol; col++) {
                     // Check if word can be placed
                     if (canPlaceWord(currentWord, row, col, direction, grid)) {
-                        // *** SINGLE CHANGE: Clear vector before use inside loop ***
-                        changes.clear(); // Clear changes for this specific placement attempt
-
                         // Place word and track changes
+                        changes.clear();
                         int gridPos = flatIndex(row, col);
                         const int dirOffset = directionOffsets[direction];
-
+                        
                         for (size_t charIdx = 0; charIdx < wordLen; charIdx++) {
                             if (grid[gridPos] != currentWord[charIdx]) {
-                                changes.emplace_back(gridPos, grid[gridPos]);
+                                changes.push_back({gridPos, grid[gridPos]});
                                 grid[gridPos] = currentWord[charIdx];
                             }
                             gridPos += dirOffset;
                         }
-
+                        
                         // Add to placements
-                        placements.emplace_back(currentWord, row, col, direction, wordLen);
-
+                        placements.push_back({currentWord, row, col, direction, wordLen});
+                        
                         // Try to place next word
                         bool result = placeWords(wordIndex + 1, placements, grid);
-
+                        
                         if (result) {
-                            foundSolution = true; // Mark that a solution was found down this path
+                            foundSolution = true;
                             if (!findAllSolutions) [[unlikely]] {
-                                // Early exit if only one solution is needed
-                                // Note: No need to backtrack here as we are returning immediately.
                                 return true;
                             }
-                             // If finding all solutions, continue searching other placements
                         }
-
+                        
                         // Backtrack - restore changed cells
                         placements.pop_back();
                         for (const auto& change : changes) {
                             grid[change.position] = change.previousChar;
                         }
-                        // changes vector is cleared at the start of the next valid placement check
                     }
                 }
             }
         }
-
-        // Return true if any solution was found down any path explored by this call
-        // (Needed for correct propagation in the "find all" case)
+        
         return foundSolution;
     }
-
 };
 
 int main(int argc, char* argv[]) {
@@ -756,25 +696,25 @@ int main(int argc, char* argv[]) {
     std::string line;
     requiredWords.reserve(20);
     forbiddenWords.reserve(20);
-
+    
     while (std::getline(inputFile, line)) {
         if (line.empty()) {
             continue;
         }
-
+        
         char wordType = line[0];
         std::string word = line.substr(2);
-
+        
         // Trim trailing whitespace
         size_t endPos = word.find_last_not_of(" \n\r\t");
         if (endPos != std::string::npos) {
             word = word.substr(0, endPos + 1);
         }
-
+        
         if (wordType == '+') {
-            requiredWords.emplace_back(word);
+            requiredWords.push_back(word);
         } else if (wordType == '-') {
-            forbiddenWords.emplace_back(word);
+            forbiddenWords.push_back(word);
         }
     }
 
@@ -794,18 +734,18 @@ int main(int argc, char* argv[]) {
 
     if (!impossiblePuzzle) {
         bool findAllSolutions = (solveMode == "all_solutions");
-
+        
         auto startTime = std::chrono::high_resolution_clock::now();
-
+        
         OptimizedInverseWordSearch solver(gridWidth, gridHeight, requiredWords, forbiddenWords, findAllSolutions);
         solver.optimizeWordOrder();
         bool success = solver.solve();
-
+        
         auto endTime = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
-
+        
         std::cout << "Solved in " << duration.count() << " ms" << std::endl;
-
+        
         if (success) {
             solutions = solver.getSolutions();
         }
@@ -826,7 +766,6 @@ int main(int argc, char* argv[]) {
             printGrid(outputFile, solution);
         }
     } else {
-        // Print only the first found solution if not in all_solutions mode
         printGrid(outputFile, solutions[0]);
     }
 

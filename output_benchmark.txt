@@ -1,0 +1,157 @@
+26 solution(s)
+Board: 
+  stara
+  dogaa
+  bataa
+  cataa
+  sunaa
+Board: 
+  stara
+  dogaa
+  bataa
+  cataa
+  nusaa
+Board: 
+  ratsa
+  dogaa
+  bataa
+  cataa
+  sunaa
+Board: 
+  dogaa
+  rbata
+  cataa
+  aataa
+  sunsa
+Board: 
+  dogaa
+  rbata
+  cataa
+  aataa
+  nussa
+Board: 
+  dogaa
+  rbata
+  cataa
+  aataa
+  anusa
+Board: 
+  aaraa
+  abata
+  cataa
+  aasun
+  dogaa
+Board: 
+  dogaa
+  arbat
+  cataa
+  atsun
+  asaaa
+Board: 
+  dogaa
+  arbat
+  cataa
+  atnus
+  asaaa
+Board: 
+  dogra
+  abata
+  atcat
+  sunaa
+  aaaaa
+Board: 
+  dogsa
+  bataa
+  cataa
+  rsuna
+  aaaaa
+Board: 
+  dogaa
+  bataa
+  cataa
+  sunaa
+  ratsa
+Board: 
+  dogaa
+  bataa
+  stara
+  cataa
+  sunaa
+Board: 
+  dogaa
+  sbata
+  atcat
+  aaaaa
+  sunra
+Board: 
+  dogaa
+  bataa
+  cataa
+  nusaa
+  ratsa
+Board: 
+  dogaa
+  bataa
+  stara
+  cataa
+  nusaa
+Board: 
+  dogsa
+  bataa
+  cataa
+  rnusa
+  aaaaa
+Board: 
+  dogaa
+  bataa
+  cataa
+  sunaa
+  stara
+Board: 
+  dogaa
+  bataa
+  cataa
+  nusaa
+  stara
+Board: 
+  ratsa
+  dogaa
+  bataa
+  cataa
+  nusaa
+Board: 
+  dogaa
+  asbat
+  atcat
+  aasun
+  araaa
+Board: 
+  dogaa
+  sbata
+  atcat
+  aaaaa
+  nusra
+Board: 
+  aasun
+  bataa
+  acata
+  aaraa
+  dogaa
+Board: 
+  dogaa
+  bataa
+  ratsa
+  cataa
+  sunaa
+Board: 
+  dogaa
+  bataa
+  ratsa
+  cataa
+  nusaa
+Board: 
+  dogaa
+  asbat
+  atcat
+  aanus
+  araaa
